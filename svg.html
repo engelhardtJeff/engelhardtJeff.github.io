@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>SVG Examples</title> 
+</head>
+<body>
+	<h1>MCS 210 - SVG Examples</h1> 
+	<p>This has examples of making SVG graphics, and making them interactive with Javascript.</p>
+
+	<svg width="500" height="250">
+		<circle cx="30" cy="30" r="25" stroke="blue" stroke-width="2" fill="red" />
+		<rect x="100" y="100" width="50" height="20" style="stroke:black;fill:white"/>
+	</svg> 
+
+	<p>The next one has an ellipse with a gradient.</p>
+
+	<svg width="500" height="250">
+		<defs>
+			<linearGradient id="prettygradient" x1="0%" y1="0%" x2="100%" y2="100%">
+				<stop offset="0%" style="stop-color:blue" />
+				<stop offset="100%" style="stop-color:purple" />
+			</linearGradient>
+		</defs>
+		<ellipse cx="250" cy="125" rx="100" ry="50" fill="url(#prettygradient)" />
+	</svg>
+
+	<p>The next one uses animation.</p>
+
+	<svg width="500" height="250">
+		<circle cx="250" cy="125" r="0" style="fill:blue">
+			<animate attributeType="CSS" attributeName="fill" from="blue" to="purple" dur="3s" repeatCount="indefinite" />
+			<animate attributeType="XML" attributeName="r" dur="5s" fill="freeze" from="0" to="100" repeatCount="indefinite" />
+		</circle>
+	</svg>
+
+	<p>The next example uses grouping with animation.</p>
+
+	<svg width="500" height="250">
+		<g stroke="blue" fill="blue" transform="translate(50,125)">
+			<circle cx="0" cy="0" r="10" />
+			<line x1="0" y1="10" x2="0" y2="20" />
+			<line x1="-10" y1="15" x2="10" y2="15" />
+			<line x1="-10" y1="30" x2="0" y2="20" />
+			<line x1="0" y1="20" x2="10" y2="30" />
+			<animate attributeType="XML" attributeName="transform" dur="5s" from="translate(50,125)" to="translate(450,125)" repeatCount="indefinite" />
+		</g>
+	</svg>
+
+	<p>The next example uses JavaScript to change the background color and add an SVG element.</p>
+
+	<svg id="JavaScriptExample" width="500" height="250" />
+	<script type='text/JavaScript'>
+		var svg = document.getElementById('JavaScriptExample');
+		svg.setAttribute('style','background-color:blue');
+		var newCircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+		newCircle.setAttribute('cx', '250');
+		newCircle.setAttribute('cy', '125');
+		newCircle.setAttribute('r', '10');
+		newCircle.setAttribute('style', 'stroke:white;fill:white');
+		svg.appendChild(newCircle);
+	</script>
+
+	<p>The next example uses JavaScript and an event listener to make circles when you click the svg element.</p>
+
+	<svg id="EventExample" width="500" height="250" />
+	<script type='text/JavaScript'>
+		function makeCircle(event){
+			var newCircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+			newCircle.setAttribute('cx', event.offsetX);
+			newCircle.setAttribute('cy', event.offsetY);
+			newCircle.setAttribute('r', '10');
+			newCircle.setAttribute('style', 'stroke:white;fill:white');
+			clickableSVG.appendChild(newCircle);
+		}
+
+		var clickableSVG = document.getElementById('EventExample');
+		clickableSVG.setAttribute('style','background-color:blue');
+		clickableSVG.addEventListener('click', makeCircle);		
+	</script>
+
+	<p>The next example uses JavaScript (from an external file) and an event listener to move the person when you click the svg element.</p>
+
+	<svg id="AnimatedEventExample" width="500" height="250" style="background-color:black">
+		<g id="Person" stroke="blue" fill="blue" transform="translate(50,125)">
+			<circle cx="0" cy="0" r="10" />
+			<line x1="0" y1="10" x2="0" y2="20" />
+			<line x1="-10" y1="15" x2="10" y2="15" />
+			<line x1="-10" y1="30" x2="0" y2="20" />
+			<line x1="0" y1="20" x2="10" y2="30" />
+		</g>
+	</svg>
+	<script type="text/javascript" src="move_person.js"></script>
+
+
+
+</body>
+</html>
